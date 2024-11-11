@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const serverUrl = import.meta.env.VITE_SERVER_URL;
   const [form, setForm] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
@@ -9,7 +10,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/auth/login', {
+    const response = await fetch(`${serverUrl}/auth/login`, {  // Corrected this line
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),

@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { AiOutlinePlus, AiOutlineEdit } from 'react-icons/ai'; // Importing icons
-import { FiArrowLeft } from 'react-icons/fi';
+import { useParams, useNavigate } from 'react-router-dom'; // Importing hooks from react-router-dom
+import { AiOutlinePlus, AiOutlineEdit } from 'react-icons/ai'; // Importing icons for adding/editing
+import { FiArrowLeft } from 'react-icons/fi'; // Importing icon for the back button
+
+const serverUrl = import.meta.env.VITE_SERVER_URL;
 
 function ProductForm() {
   const [form, setForm] = useState({ name: '', price: '', description: '', category: '' });
   const [error, setError] = useState(null);
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const { id } = useParams(); // Extract product id from URL parameters
+  const navigate = useNavigate(); // For navigation after form submission
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/products/${id}`)
+      fetch(`${serverUrl}/products/${id}`)
         .then((res) => {
           if (!res.ok) throw new Error(`Product not found (status: ${res.status})`);
           return res.json();
@@ -45,7 +47,7 @@ function ProductForm() {
     }
 
     const method = id ? 'PUT' : 'POST';
-    const endpoint = id ? `http://localhost:5000/products/${id}` : 'http://localhost:5000/products/add';
+    const endpoint = id ? `${serverUrl}/products/${id}` : `${serverUrl}/products/add`;
 
     // Reset error before sending request
     setError(null);

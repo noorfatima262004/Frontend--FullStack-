@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiFillDelete, AiFillEdit, AiOutlinePlus } from 'react-icons/ai';
 
+// Import the server URL from environment variables
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
 function ProductList() {
   const [products, setProducts] = useState([]);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
@@ -10,7 +13,8 @@ function ProductList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:5000/products')
+    // Use the imported server URL
+    fetch(`${serverUrl}/products`)
       .then((response) => response.json())
       .then((data) => setProducts(data));
   }, []);
@@ -25,7 +29,7 @@ function ProductList() {
 
   const handleDeleteProducts = async () => {
     for (let productId of selectedProducts) {
-      await fetch(`http://localhost:5000/products/${productId}`, {
+      await fetch(`${serverUrl}/products/${productId}`, {
         method: 'DELETE',
       });
     }
