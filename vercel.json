@@ -1,12 +1,9 @@
 {
-    "version": 2,
-    "projects": {
-      "frontend": {
-        "path": "frontend"
-      },
-      "backend": {
-        "path": "backend"
-      }
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
     }
-  }
-  
+  ]
+}
