@@ -1,9 +1,8 @@
 {
-  "version": 2,
-  "builds": [
+  "reweites": [
     {
-      "src": "index.html",
-      "use": "@vercel/static"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
